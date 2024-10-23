@@ -9,15 +9,10 @@ from pesquisa_binaria import pesquisa_binaria
 lista_matriculas = ListaDuplamenteEncadeada()
 
 def limpar_tela():
-    """
-    Limpa a tela do terminal.
-    """
     os.system('cls')
 
 def exibir_menu():
-    """
-    Exibe o menu de opções para o usuário.
-    """
+    # Exibe o menu de opções para o usuário.
     print("\nMenu:")
     print("1. Incluir matrícula")
     print("2. Remover matrícula")
@@ -27,9 +22,8 @@ def exibir_menu():
     print("6. Sair")
 
 def incluir_matricula():
-    """
-    Solicita os dados do aluno e da grade, cria uma nova matrícula e a inclui na lista.
-    """
+    limpar_tela()
+    # Solicita os dados do aluno e da grade, cria uma nova matrícula e a inclui na lista.
     ra = int(input("Digite o RA do aluno: "))
     nome = input("Digite o nome do aluno: ")
     telefone = input("Digite o telefone do aluno: ")
@@ -40,15 +34,17 @@ def incluir_matricula():
     aluno = Aluno(ra, nome, telefone)
     grade = Grade(disciplina, etapa)
     matricula = Matricula(aluno, grade)
-    
+
+    limpar_tela()
+
     # Inclui a matrícula na lista
     lista_matriculas.incluir(matricula)
     print("Matrícula incluída com sucesso!")
 
 def remover_matricula():
-    """
-    Solicita o RA do aluno e remove a matrícula correspondente da lista.
-    """
+    limpar_tela()
+
+    # Solicita o RA do aluno e remove a matrícula correspondente da lista.
     ra = int(input("Digite o RA do aluno a ser removido: "))
     if lista_matriculas.remover(ra):
         print("Matrícula removida com sucesso!")
@@ -56,6 +52,7 @@ def remover_matricula():
         print("Aluno não encontrado.")
 
 def consultar_matricula():
+    limpar_tela()
     # Solicita o RA do aluno e consulta a matrícula correspondente na lista.
     ra = int(input("Digite o RA do aluno a ser consultado: "))
     matricula = lista_matriculas.consultar(ra)
@@ -64,15 +61,17 @@ def consultar_matricula():
     else:
         print("Aluno não encontrado.")
 
-def realizar_pesquisa_binaria():\
+def realizar_pesquisa_binaria():
+    limpar_tela()
     # Solicita o RA do aluno e realiza uma pesquisa binária na lista de matrículas ordenada.
     ra = int(input("Digite o RA do aluno a ser pesquisado: "))
-
+    
     # Ordena a lista de matrículas pelo RA do aluno
-    lista_ordenada = sorted([mat for mat in lista_matriculas], key=lambda x: x.aluno.ra)
-
-    limpar_tela()  # Limpa a tela antes de exibir o menu
-
+    lista_matriculas.ordenar_por_ra()
+    
+    # Converte a lista duplamente encadeada em uma lista para a pesquisa binária
+    lista_ordenada = list(lista_matriculas)
+    
     # Realiza a pesquisa binária
     resultado = pesquisa_binaria(lista_ordenada, ra)
     if resultado:
@@ -103,5 +102,3 @@ while True:
         break  # Encerra o loop e o programa
     else:
         print("Opção inválida. Tente novamente.")
-    
-    input("Pressione Enter para continuar...")  # Pausa para o usuário ver o resultado

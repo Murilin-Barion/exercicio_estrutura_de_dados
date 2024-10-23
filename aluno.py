@@ -1,23 +1,25 @@
-class Grade:
+class Aluno:
     """
-    Classe que representa a grade de uma disciplina.
+    Classe que representa um aluno.
     """
-    def __init__(self, disciplina, etapa):
+    def __init__(self, ra, nome, telefone):
         """
-        Inicializa uma nova instância de Grade.
+        Inicializa uma nova instância de Aluno.
 
         Args:
-            disciplina (str): Nome da disciplina.
-            etapa (str): Etapa da disciplina.
+            ra (int): Registro Acadêmico (RA) do aluno.
+            nome (str): Nome do aluno.
+            telefone (str): Telefone do aluno.
         """
-        self.disciplina = disciplina  # Atribui o nome da disciplina ao atributo disciplina
-        self.etapa = etapa  # Atribui a etapa da disciplina ao atributo etapa
+        self.ra = ra  # Atribui o RA do aluno ao atributo ra
+        self.nome = nome  # Atribui o nome do aluno ao atributo nome
+        self.telefone = telefone  # Atribui o telefone do aluno ao atributo telefone
 
     def __str__(self):
         """
-        Retorna uma representação em string da grade.
+        Retorna uma representação em string do aluno.
 
         Returns:
-            str: Uma string que representa a grade, incluindo o nome da disciplina e a etapa.
+            str: Uma string que representa o aluno, incluindo RA, nome e telefone.
         """
-        return f"Disciplina: {self.disciplina}, Etapa: {self.etapa}"
+        return f"RA: {self.ra}, Nome: {self.nome}, Telefone: {self.telefone}"

@@ -28,7 +28,6 @@ class ListaDuplamenteEncadeada:
         current = self.head  # Começa pelo primeiro nó
         while current:
             if current.data.aluno.ra == ra:
-                # Se encontrar o nó com o RA fornecido, ajusta as referências
                 if current.prev:
                     current.prev.next = current.next
                 if current.next:
@@ -63,3 +62,57 @@ class ListaDuplamenteEncadeada:
         while current is not None:
             yield current.data  # Retorna o dado do nó atual
             current = current.next  # Move para o próximo nó
+
+    def ordenar_por_ra(self):
+        # Ordena a lista de matrículas pelo RA do aluno usando Radix Sort.
+        if self.head is None:
+            return
+
+        # Encontra o maior RA na lista
+        max_ra = self.head.data.aluno.ra
+        current = self.head.next
+        while current:
+            if current.data.aluno.ra > max_ra:
+                max_ra = current.data.aluno.ra
+            current = current.next
+
+        # Aplica Radix Sort
+        exp = 1
+        while max_ra // exp > 0:
+            self._counting_sort(exp)
+            exp *= 10
+
+    def _counting_sort(self, exp):
+        # Função auxiliar para o Radix Sort
+        output = [None] * self._length()
+        count = [0] * 10
+
+        current = self.head
+        while current:
+            index = (current.data.aluno.ra // exp) % 10
+            count[index] += 1
+            current = current.next
+
+        for i in range(1, 10):
+            count[i] += count[i - 1]
+
+        current = self.tail
+        while current:
+            index = (current.data.aluno.ra // exp) % 10
+            output[count[index] - 1] = current.data
+            count[index] -= 1
+            current = current.prev
+
+        current = self.head
+        for i in range(len(output)):
+            current.data = output[i]
+            current = current.next
+
+    def _length(self):
+        # Retorna o comprimento da lista
+        count = 0
+        current = self.head
+        while current:
+            count += 1
+            current = current.next
+        return count
